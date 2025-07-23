@@ -1,33 +1,42 @@
 package pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import base.TestBase;
-
-public class LoginPage extends TestBase{
+public class LoginPage {
 	
-	@FindBy(id="username")
+	
+	protected WebDriver driver;
+	protected WebDriverWait wait;
+	
+	@FindBy(id="email")
 	private WebElement usernameInput;
 	
 	@FindBy(id ="password")
 	private WebElement passwordInput;
 	
-	@FindBy(id="loginbutton")
+	@FindBy(id="login-button")
 	private WebElement loginButton;
 	
 	@FindBy(css = "div[role=\"alert\"]")
 	private WebElement errorMessage;
 	
 	public LoginPage(WebDriver driver) {
-		super();
+		
+		this.driver = driver;
+		System.out.println("Initialzing loginPage with driver "+driver);
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		PageFactory.initElements(driver, this);
 	}
 	
 	public void enterUsername(String username) {
+
 		wait.until(ExpectedConditions.visibilityOf(usernameInput)).sendKeys(username);
 	}
 	
@@ -49,6 +58,9 @@ public class LoginPage extends TestBase{
 	}
 	
 	public void login(String username , String password) {
+		
+		System.out.println("userfiled"+usernameInput);
+		
 		enterUsername(username);
 		enterPassword(password);
 		clickLogin();

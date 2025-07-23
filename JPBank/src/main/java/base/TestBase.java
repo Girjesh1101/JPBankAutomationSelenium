@@ -11,6 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -20,12 +21,22 @@ public class TestBase {
 	protected WebDriver driver;
 	protected WebDriverWait wait;
 	String url ="https://jpgormanbank.lovable.app/login";
-
 	
-	@Parameters("browser")
+	public TestBase(WebDriver driver) {
+		this.driver = driver;
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+	}
+	
+	public TestBase() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	@BeforeMethod
-	public void setUp(String browser) {
+	@Parameters("browser")
+	public void setUp(@Optional("chrome") String browser) {
 		
+		System.out.println("inside BeforeMethod");
 		System.out.println("Setting up test for browser: "+browser);
 		
 		switch (browser.toLowerCase()) {
@@ -49,8 +60,8 @@ public class TestBase {
 		}
 		
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		driver.get(url);
 	}
 	
