@@ -15,6 +15,7 @@ public class DashboardPage {
 	private WebDriver driver;
 	private WebDriverWait wait;
 	
+	
 	public DashboardPage(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -33,7 +34,7 @@ public class DashboardPage {
 	@FindBy(css = "p[class=\"text-2xl font-bold text-bank-primary\"]")
 	private WebElement accountBalanceLbl;
 	
-	@FindBy()
+	@FindBy(xpath = "//h3[text()='Recent Transactions']")
 	private WebElement recentTransaction;
 	
 	public int getAccountCount() {

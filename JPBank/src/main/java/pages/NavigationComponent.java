@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class NavigationComponent {
@@ -31,8 +32,8 @@ public class NavigationComponent {
 //	@FindBy(css= "li a[href='/transactions']")
 	private WebElement transactionBtn;
 	
-//	@FindBy(css ="li a[href='/loan']")
-	@FindBy(css ="//a[@href='/loan' or .//h3[text()='Apply for a Loan']]")
+	@FindBy(css ="li a[href='/loan']")
+//	@FindBy(css ="//a[@href='/loan' or .//h3[text()='Apply for a Loan']]")
 	private WebElement applyLoanBtn;
 	
 	@FindBy(css ="li a[href='/loan-status']")
@@ -47,35 +48,45 @@ public class NavigationComponent {
 	
 	public void goToDashboard() {
 		
-		dashboardBtn.click();
+		 wait.until(ExpectedConditions.visibilityOf(dashboardBtn)).click();
 		System.out.println("Dashboard");
 	}
 	
 	public void goToMoneyTransfer() {
 		
-		tranferBtn.click();
+		 wait.until(ExpectedConditions.visibilityOf( tranferBtn)).click();
 		System.out.println("tranfer");
 	}
 	
 	public void goToApplyLoan() {
 		
-		applyLoanBtn.click();
+		 wait.until(ExpectedConditions.visibilityOf(applyLoanBtn)).click();
 		System.out.println("applyLoan");
 	}
 	
 	public void goToLoanStatus() {
-		loanStatusBtn.click();
+		 wait.until(ExpectedConditions.visibilityOf(loanStatusBtn)).click();
 		System.out.println("loan status");
 	}
 	
 	public void gotoProfile() {
-		profileBtn.click();
+		wait.until(ExpectedConditions.visibilityOf(profileBtn)).click();
 		System.out.println("profile");
 	}
 	
 	public void logout() {
-		logoutBtn.click();
+		 wait.until(ExpectedConditions.visibilityOf(logoutBtn)).click();
 		System.out.println("logout");
+	}
+	
+	public void checkAllNav() {
+		
+		gotoProfile();
+		goToLoanStatus();
+		goToApplyLoan();
+		goToMoneyTransfer();
+		goToDashboard();
+		logout();
 	}
 	
 }

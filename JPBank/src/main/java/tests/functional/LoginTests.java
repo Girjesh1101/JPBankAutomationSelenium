@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import base.TestBase;
 import pages.DashboardPage;
 import pages.LoginPage;
+import pages.NavigationComponent;
 
 public class LoginTests extends TestBase {
 	
@@ -57,4 +58,19 @@ public class LoginTests extends TestBase {
 		dashboardPage.recentTransactionVisible();
 	}
 
+	@Test(description = "Verify All Negivation")
+	public void verifAllNavigation() {
+		
+		String username = "raj.sharma@example.com";
+		String password = "password123";
+		
+		
+		LoginPage loginPage = new LoginPage(driver);
+		NavigationComponent navPage = new NavigationComponent(driver);
+		loginPage.login(username, password);
+		
+		Assert.assertEquals(loginPage.getTitle(), "bank-test-simulator-app" , "Verify title of the login page");
+		navPage.checkAllNav();
+	}
+	
 }
