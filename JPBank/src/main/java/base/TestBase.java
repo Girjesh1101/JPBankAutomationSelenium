@@ -9,12 +9,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pages.LoginPage;
 
 public class TestBase {
 	
@@ -63,6 +65,8 @@ public class TestBase {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		driver.get(url);
+		
+		login();
 	}
 	
 	@AfterMethod
@@ -71,4 +75,17 @@ public class TestBase {
 			driver.quit();
 		}
 	}
+	
+	public void login() {
+		
+		String username = "raj.sharma@example.com";
+		String password = "password123";
+		
+		
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.login(username, password);
+		
+		Assert.assertEquals(loginPage.getTitle(), "bank-test-simulator-app" , "Verify title of the login page");
+	}
+	
 }

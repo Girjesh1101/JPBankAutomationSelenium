@@ -33,7 +33,6 @@ public class NavigationComponent {
 	private WebElement transactionBtn;
 	
 	@FindBy(css ="li a[href='/loan']")
-//	@FindBy(css ="//a[@href='/loan' or .//h3[text()='Apply for a Loan']]")
 	private WebElement applyLoanBtn;
 	
 	@FindBy(css ="li a[href='/loan-status']")
