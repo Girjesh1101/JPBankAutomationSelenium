@@ -12,7 +12,7 @@ public class ConfigReader {
 		
 		try {
 			
-			String path="";
+			String path="src/test/java/resource/config.properties";
 			String configFilePath = path;
 			FileInputStream input = new FileInputStream(configFilePath);
 			

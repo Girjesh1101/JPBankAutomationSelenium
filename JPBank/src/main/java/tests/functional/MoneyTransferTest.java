@@ -1,10 +1,12 @@
 package tests.functional;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.github.javafaker.Faker;
 
 import base.TestBase;
+import pages.LoginPage;
 import pages.MoneyTransferPage;
 import pages.NavigationComponent;
 
@@ -20,6 +22,16 @@ public class MoneyTransferTest extends TestBase{
 		String upiId = faker.name().username()+"@upi";
 		String amount = faker.number().digits(4);
 		String des = "Testing";
+		
+		String username = "raj.sharma@example.com";
+		String password = "password123";
+		
+		
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.login(username, password);
+		
+		Assert.assertEquals(loginPage.getTitle(), "bank-test-simulator-app" , "Verify title of the login page");
+	
 		
 		String[] verify = {"blank",upiId,amount , des};
 		
@@ -46,6 +58,16 @@ public class MoneyTransferTest extends TestBase{
 		String des = "Testing";
 		String type = "IMPS";
 		
+		String username = "raj.sharma@example.com";
+		String password = "password123";
+		
+		
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.login(username, password);
+		
+		Assert.assertEquals(loginPage.getTitle(), "bank-test-simulator-app" , "Verify title of the login page");
+	
+		
 		String verify[] = {"blank",accNo,ifsc ,name ,amount ,des , type};
 		
 		NavigationComponent navObj = new NavigationComponent(driver);
@@ -64,12 +86,22 @@ public class MoneyTransferTest extends TestBase{
 		faker = new Faker();
 		String upiId = faker.name().username()+"@upi";
 		String accNo = faker.number().digits(12);
-		String ifsc = "SBI000"+faker.number().digits(4);
+		String ifsc = "SBIN000"+faker.number().digits(4);
 		String name = faker.name().firstName();
 		String amount = faker.number().digits(4);
 		String des = "Testing";
 		String type = "IMPS";
 		String TransferWay = "account transfer";
+		
+		String username = "raj.sharma@example.com";
+		String password = "password123";
+		
+		
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.login(username, password);
+		
+		Assert.assertEquals(loginPage.getTitle(), "bank-test-simulator-app" , "Verify title of the login page");
+	
 		
 		
 		NavigationComponent navObj = new NavigationComponent(driver);

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,6 +16,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import config.ConfigReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import pages.LoginPage;
 
@@ -22,7 +24,7 @@ public class TestBase {
 	
 	protected WebDriver driver;
 	protected WebDriverWait wait;
-	String url ="https://jpgormanbank.lovable.app/login";
+	String url = ConfigReader.getProperty("url");
 	
 	public TestBase(WebDriver driver) {
 		this.driver = driver;
@@ -57,6 +59,16 @@ public class TestBase {
 				driver = new EdgeDriver();
 				break;
 				
+			case "safari":
+				WebDriverManager.safaridriver().setup();
+				driver = new SafariDriver();
+				break;
+				
+//				Note : you cannot directly use safari
+//				Open Safari → Preferences → Advanced → Enable "Show Develop menu"
+//				Then Develop → Allow Remote Automation.
+				
+				
 		default:
 			throw new IllegalArgumentException("Unspported browser: "+browser);
 		}
@@ -66,7 +78,6 @@ public class TestBase {
 		wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		driver.get(url);
 		
-		login();
 	}
 	
 	@AfterMethod
@@ -76,16 +87,5 @@ public class TestBase {
 		}
 	}
 	
-	public void login() {
-		
-		String username = "raj.sharma@example.com";
-		String password = "password123";
-		
-		
-		LoginPage loginPage = new LoginPage(driver);
-		loginPage.login(username, password);
-		
-		Assert.assertEquals(loginPage.getTitle(), "bank-test-simulator-app" , "Verify title of the login page");
-	}
 	
 }

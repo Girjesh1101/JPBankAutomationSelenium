@@ -37,6 +37,9 @@ public class DashboardPage {
 	@FindBy(xpath = "//h3[text()='Recent Transactions']")
 	private WebElement recentTransaction;
 	
+	@FindBy(xpath = "(//div[@class='space-y-4'])[2]/div[1]/p[2]")
+	public WebElement lblAvailableBalance;
+	
 	public int getAccountCount() {
 		
 		System.out.println("Size:"+accountItem.size());
@@ -62,7 +65,13 @@ public class DashboardPage {
 	}
 	
 	
-	
+	public String displayBalance() {
+		
+		wait.until(ExpectedConditions.visibilityOf(lblAvailableBalance));
+		System.out.println(lblAvailableBalance.getText());
+		
+		return lblAvailableBalance.getText();
+	}
 	
 	public void verifiyAccountDetails() {
 		

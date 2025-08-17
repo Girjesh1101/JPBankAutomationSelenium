@@ -6,32 +6,37 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import base.TestBase;
+import config.ConfigReader;
 import pages.DashboardPage;
 import pages.LoginPage;
 import pages.NavigationComponent;
+import utils.DataProviderUtils;
 
 public class LoginTests extends TestBase {
 	
 	
 
-//	@Test(description = "Verify successful login with valid credentials")
+	@Test(description = "Verify successful login with valid credentials")
 	public void testSuccessfulLogin() {
 		
-		String username = "raj.sharma@example.com";
-		String password = "password123";
+		
+		String username = ConfigReader.getProperty("validusername");
+		String password = ConfigReader.getProperty("validpassword");
+		
 		
 		
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.login(username, password);
 		
 		Assert.assertEquals(loginPage.getTitle(), "bank-test-simulator-app" , "Verify title of the login page");
+	
 	}
 	
-//	@Test(description = "Verify login fail with invalid credentials")
-	public void testInvalidLogin() {
+	
+	@Test(description = "Verify login fail with invalid credentials"  , dataProvider = "invalidLoginData" , dataProviderClass = DataProviderUtils.class)
+	public void testInvalidLogin(String username , String password, String message) {
 		
-		String username = "raj.sharma@example.com";
-		String password = "password";
+
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.enterUsername(username);
 		loginPage.enterPassword(password);
@@ -44,8 +49,8 @@ public class LoginTests extends TestBase {
 	@Test(description = "Verify dashboard")
 	public void verifyDashboard() {
 		
-		String username = "raj.sharma@example.com";
-		String password = "password123";
+		String username = ConfigReader.getProperty("validusername");
+		String password = ConfigReader.getProperty("validpassword");
 		
 		
 		LoginPage loginPage = new LoginPage(driver);
@@ -61,8 +66,8 @@ public class LoginTests extends TestBase {
 	@Test(description = "Verify All Negivation")
 	public void verifAllNavigation() {
 		
-		String username = "raj.sharma@example.com";
-		String password = "password123";
+		String username = ConfigReader.getProperty("validusername");
+		String password = ConfigReader.getProperty("validpassword");
 		
 		
 		LoginPage loginPage = new LoginPage(driver);
