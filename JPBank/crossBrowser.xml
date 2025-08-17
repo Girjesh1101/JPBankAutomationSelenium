@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="cross Browser testing Suite" parallel="tests">
+<listeners>
+	<listener class-name="listners.CustomReportListner"></listener>
+</listeners>
   <test  name="chrome Test">
   <parameter name="browser" value="chrome"></parameter>
     <classes>
