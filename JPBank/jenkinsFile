@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    
+    tools {
+        maven 'Maven3'   // name as configured in Jenkins Global Tool Config
+        jdk 'JDK11'      // name as configured in Jenkins
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                https://github.com/Girjesh1101/JPBankAutomationSelenium.git'
+            }
+        }
+
+        stage('Build & Run Tests') {
+            steps {
+               
+                sh 'mvn clean test -DsuiteXmlFile=login.xml'
+            }
+        }
+
+        stage('Publish Reports') {
+            steps {
+                junit '**/target/surefire-reports/*.xml'
+            }
+        }
+    }
+
+   
+}
